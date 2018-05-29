@@ -111,22 +111,31 @@ public class Transfer {
     }
     public static byte[] TransIntToBytes(BigInteger iSource, int iArrayLen)
     {
-        //int -> bytes
-        byte[] bLocalArr = new byte[iArrayLen];
-        for ( int i = 0; (i < 4) && (i < iArrayLen); i++) {
-            bLocalArr[i] = (byte)( iSource.intValue()>>8*i & 0xFF );
-        }
-        String hex = byte2hex(bLocalArr);
-        System.out.println("整数转换得到的字节串为："+hex);
-        return bLocalArr;
+//        //int -> bytes
+//        byte[] bLocalArr = new byte[iArrayLen];
+//        for ( int i = 0; (i < 4) && (i < iArrayLen); i++) {
+//            bLocalArr[i] = (byte)( iSource.intValue()>>8*i & 0xFF );
+//        }
+//        String hex = byte2hex(bLocalArr);
+//        System.out.println("整数转换得到的字节串为："+hex);
+//        return bLocalArr;
+        byte[] array = new byte[iArrayLen];
+//        array = iSource.toByteArray();
+//        if (array[0] == 0) {
+//            byte[] tmp = new byte[array.length - 1];
+//            System.arraycopy(array, 1, tmp, 0, tmp.length);
+//            array = tmp;
+//        }
+        return array;
     }
     public static BigInteger TransBytesToInt(byte[] bytes)
     {
-        int target = 0;
-        for (int i = 0; i < bytes.length; i++) {
-            target += (bytes[i] & 0xff) << 8 * i;
-        }
-        return Point.IntToBig(target);
+//        int target = 0;
+//        for (int i = 0; i < bytes.length; i++) {
+//            target += (bytes[i] & 0xff) << 8 * i;
+//        }
+//        return Point.IntToBig(target);
+        return new BigInteger(bytes);
     }
     public static String byte2hex(byte [] buffer){
         String h = "";

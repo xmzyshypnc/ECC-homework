@@ -129,12 +129,13 @@ public class Curve {
                 X = new BigInteger(modulus.bitLength(),new Random());
                 if (X.subtract(modulus).signum() >= 0)
                     continue;
-                int k = u.multiply(IntToBig(4)).add(BigInteger.ONE).intValue();
+                //int k = u.multiply(IntToBig(4)).add(BigInteger.ONE).intValue();
+                BigInteger k = u.multiply(IntToBig(4)).add(BigInteger.ONE);
                 //get Lucas
                 Point LucasPoint = GenerateLucas(modulus, X, Y, k);
                 U = LucasPoint.x;
                 V = LucasPoint.y;
-                System.out.println("要计算的值为："+U.mod(modulus).intValue());
+                System.out.println("要计算的值为："+U.mod(modulus).toString());
                 if(V.multiply(V).mod(modulus).toString().equals(IntToBig(4).multiply(Y).toString()))
                 {
                     System.out.println("6931");
@@ -159,12 +160,13 @@ public class Curve {
         }
         return y;
     }
-    public static Point GenerateLucas(BigInteger p, BigInteger X, BigInteger Y, int k)
+    public static Point GenerateLucas(BigInteger p, BigInteger X, BigInteger Y, BigInteger k)
     {
         Point point = new Point(BigInteger.ZERO,BigInteger.ZERO);
         BigInteger delta, U, V;
         delta = X.multiply(X).subtract(Y.multiply(IntToBig(4)));
-        char[] k_char = Integer.toBinaryString(k).toCharArray();
+        //char[] k_char = Integer.toBinaryString(k).toCharArray();
+        char[] k_char = Transfer.TransBytesToBits(k.toByteArray());
         U = BigInteger.ONE;
         V = X;
         for (int i = k_char.length-2; i >= 0; i--)

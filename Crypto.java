@@ -12,11 +12,20 @@ public class Crypto {
     Point public_key;
     public BigInteger CreatePrivateKey(BigInteger order)
     {
-        int min = 1;
-        int max = order.intValue() - 2;
+//        int min = 1;
+//        int max = order.intValue() - 2;
 //        int x_a = RandInt(min,max);
-        int x_a = 17;
-        this.private_key = Point.IntToBig(x_a);
+//        int x_a = 17;
+        BigInteger x_a;
+        Random random = new Random();
+        while (true)
+        {
+            x_a = new BigInteger(order.bitLength(),random);
+            if(x_a.subtract(order).signum()<0)
+                break;
+        }
+        //this.private_key = Point.IntToBig(x_a);
+        this.private_key = x_a;
         System.out.println("˽ԿΪ"+this.private_key.toString());
         return this.private_key;
     }

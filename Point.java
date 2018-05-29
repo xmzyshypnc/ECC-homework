@@ -87,19 +87,48 @@ public class Point {
         }
         BigInteger x = p.x.mod(modulus);
         BigInteger y = p.y.mod(modulus);
-        Point q = new Point(x,y);
-        BigInteger slope;
-        for (BigInteger i = BigInteger.ZERO; i.subtract(x_a.subtract(BigInteger.ONE)).signum() < 0; i=i.add(BigInteger.ONE)){
-            Point temp = Add(a,b,modulus,p,q);
-            if(temp.isInfinite == false)
-                q = temp;
-            else
+        //calculate some important points
+        //trans x_a into binary
+        char[] x_a_bin = Transfer.TransBytesToBits(x_a.toByteArray());
+        int index=0;
+        for (int i = 0; i < x_a_bin.length; i++)
+        {
+            if(x_a_bin[i] != '0')
             {
-                q = temp;
-                q.isInfinite = true;
+                index = i;
+                break;
             }
         }
-        return q;
+        x_a_bin = new String(x_a_bin).substring(index).toCharArray();
+        System.out.println("乘法计算的系数为："+x_a.toString());
+        System.out.println("乘法计算前的系数二进制表示为："+new String(x_a_bin));
+        //先计算0元，实际不需要算出来，只需要置为true
+        //Point ZeroPoint;
+        Point base = new Point(BigInteger.ZERO,BigInteger.ZERO);
+        base.isInfinite = true;
+        Point temp = p;
+        for (int i = x_a_bin.length-1; i >= 0; --i)
+        {
+            if (x_a_bin[i] == '1')
+            {
+                base = Add(a,b,modulus,base,temp);
+            }
+            temp = Add(a,b,modulus,temp,temp);
+        }
+        return base;
+//        Point q = new Point(x,y);
+//        BigInteger slope;
+//        for (BigInteger i = BigInteger.ZERO; i.subtract(x_a.subtract(BigInteger.ONE)).signum() < 0; i=i.add(BigInteger.ONE)){
+//            Point temp = Add(a,b,modulus,p,q);
+//            if(temp.isInfinite == false)
+//                q = temp;
+//            else
+//            {
+//                q = temp;
+//                q.isInfinite = true;
+//            }
+//        }
+//        return q;
 
     }
 

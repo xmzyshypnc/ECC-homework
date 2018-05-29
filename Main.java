@@ -8,7 +8,7 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) throws IOException {
         //test for generator
-        Curve curve = CreateCurve(8);
+        Curve curve = CreateCurve(16);
         BigInteger a,b,modulus,order;
         Point generator;
         a = curve.a;
@@ -35,8 +35,8 @@ public class Main {
         char[] crypted;
         crypted = Crypto.Encryption(curve.a,curve.b,curve.modulus,order,generator,message,public_key);
         //Decryption
-        Crypto.Decryption(curve.a,curve.b,curve.modulus,infinite,crypted,private_key);
-
+        String mess = Crypto.Decryption(curve.a,curve.b,curve.modulus,infinite,crypted,private_key);
+        System.out.println("解密结果为："+mess);
 //        Point p = new Point(IntToBig(1),IntToBig(7));
 //        Point q = new Point(IntToBig(9),IntToBig(16));
         //test add
