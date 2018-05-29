@@ -16,6 +16,8 @@ public class Main {
         modulus = curve.modulus;
         generator = curve.generator;
         order = curve.order;
+        Point infinite = Point.Multiply(a,b,modulus,order,generator);
+        System.out.println("Œﬁ«Ó‘∂µ„ «£∫("+infinite.x.toString()+","+infinite.y.toString()+")");
   //      Curve curve = new Curve(IntToBig(1),IntToBig(1),IntToBig(23));
 //        Point generator = new Point(IntToBig(18),IntToBig(3));
 //        BigInteger order = IntToBig(28);
@@ -33,7 +35,7 @@ public class Main {
         char[] crypted;
         crypted = Crypto.Encryption(curve.a,curve.b,curve.modulus,order,generator,message,public_key);
         //Decryption
-        Crypto.Decryption(curve.a,curve.b,curve.modulus,crypted,private_key);
+        Crypto.Decryption(curve.a,curve.b,curve.modulus,infinite,crypted,private_key);
 
 //        Point p = new Point(IntToBig(1),IntToBig(7));
 //        Point q = new Point(IntToBig(9),IntToBig(16));

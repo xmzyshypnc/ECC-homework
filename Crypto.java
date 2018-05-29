@@ -78,7 +78,7 @@ public class Crypto {
         char[] encrypted = Transfer.addBits(Transfer.addBits(c1_bits,c2_bits,true),c3_bits,true);
         return encrypted;
     }
-    public static String Decryption(BigInteger a, BigInteger b, BigInteger modulus, char[] encryted, BigInteger privae_key) throws IOException {
+    public static String Decryption(BigInteger a, BigInteger b, BigInteger modulus, Point infinite, char[] encryted, BigInteger privae_key) throws IOException {
         //Trans c1 to x
         char[] c1_bits = new String(encryted).split("z")[0].toCharArray();
         char[] c2_bits = new String(encryted).split("z")[1].toCharArray();
@@ -86,7 +86,7 @@ public class Crypto {
 
         byte[] c1_bytes = Transfer.TransBitsToBytes(c1_bits);
         System.out.println("解密时c1结果是："+Transfer.byte2hex(c1_bytes));
-        Point c1_point = Transfer.TransBytesToPoint(a,b,modulus,c1_bytes);
+        Point c1_point = Transfer.TransBytesToPoint(a,b,modulus,infinite,c1_bytes);
         System.out.println("解密的点坐标为("+c1_point.x.toString()+","+c1_point.y.toString()+")");
         //B3
         System.out.println(555);

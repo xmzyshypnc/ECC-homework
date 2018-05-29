@@ -62,7 +62,7 @@ public class Transfer {
         res = addBytes(res_1,byte_y);
         return res;
     }
-    public static Point TransBytesToPoint(BigInteger a, BigInteger b, BigInteger modulus, byte[] bytes)
+    public static Point TransBytesToPoint(BigInteger a, BigInteger b, BigInteger modulus, Point infinite, byte[] bytes)
     {
         Point point = new Point(BigInteger.ZERO,BigInteger.ZERO);
         int byte_len = (int)Math.ceil((double)modulus.bitLength()/8.0);
@@ -84,6 +84,11 @@ public class Transfer {
         point.y = y;
         //check
         ////////这里以后要加判断如果是无穷远的点要把isinfinite置为true
+        if(point.x.toString().equals(infinite.x.toString()) && point.y.toString().equals(infinite.y.toString()))
+        {
+            System.out.println("转换得到是无穷远点");
+            point.isInfinite = true;
+        }
         if(!Point.IsOnCurve(a,b,modulus,point) )
             System.out.println("得到的点不在曲线上！");
         return point;

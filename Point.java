@@ -18,6 +18,8 @@ public class Point {
     {
         //judge if the point is on the elliptic curve
         //y^2 = x^3 + a*x + b (mod p)
+        if (point.isInfinite)
+            return true;
         BigInteger CalcRes;
         CalcRes = point.x.multiply(point.x).multiply(point.x).add(a.multiply(point.x)).add(b).mod(modulus);
         if (CalcRes.toString().equals(point.y.multiply(point.y).mod(modulus).toString()))
